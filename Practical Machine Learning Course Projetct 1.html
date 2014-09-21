@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Practical Machine Learning Course Project </title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+section	{
+	font-family: Helvetica, Times, serif;
+	}
+
+body	{
+	font-family: Helvetica, Times, serif;
+	line-height: 125%;
+	background-color: white;
+	font-size: 11pt;
+	margin: 8px;
+	}
+
+p	{
+	margin-top: 1em;
+	}
+
+figcaption
+	{
+	color: #000080;
+	font-size: 11pt;
+	font-style: normal;
+	font-weight: bold;
+	font-family: helvetica,sans-serif;
+	text-align: left;
+	}
+
+tt, code, pre {
+	font-family: Consolas, Monaco, monospace;
+	font-size: 11px;
+	}
+
+h1	{
+	margin-top: 2em;
+	font-size: 1.6em;
+	}
+
+h2	{
+	margin-top: 2em;
+	font-size: 1.45em;
+	}
+
+h3	{
+	margin-top: 1.5em;
+	font-size: 1.3em;
+	}
+
+h4	{
+	margin-top: 1.5em;
+	font-size: 1.2em;
+	}
+
+h5	{
+	margin-top: 1.5em;
+	font-size: 1.1em;
+	}
+
+h6	{
+	margin-top: 1.5em;
+	font-size: 1em;
+	}
+
+a:visited
+	{
+	color: rgb(50%, 0%, 50%);
+	}
+
+pre	{
+	margin-top: 0;
+	white-space: pre-wrap;
+	}
+
+pre code
+	{
+	display: block; padding: 0.5em;
+	}
+
+code.r, code.cpp
+	{
+	background-color: #F8F8F8;
+	}
+
+table, td, th
+	{
+	border: none;
+	border-collapse:collapse;
+	}
+
+table	{
+	align: left;
+	}
+
+blockquote
+	{
+	color:#666666;
+	margin:0;
+	padding-left: 1em;
+	border-left: 0.5em #EEE solid;
+	}
+
+hr	{
+	height: 0px;
+	border-bottom: none;
+	border-top-width: thin;
+	border-top-style: dotted;
+	border-top-color: #999999;
+	}
+
+.tblC08sans
+	{
+	color: #000080;
+	font-size: 8pt;
+	font-style: normal;
+	font-family: consolas,courier,helvetica,sans-serif;
+	padding: 0px 10px;
+	text-align: center;
+	}
+
+.tblL08sans
+	{
+	color: #000080;
+	font-size: 8pt;
+	font-style: normal;
+	font-family: consolas,courier,helvetica,sans-serif;
+	padding: 0px 10px;
+	text-align: left;
+	}
+
+.tblR08sans
+	{
+	color: #000080;
+	font-size: 8pt;
+	font-style: normal;
+	font-family: consolas,courier,helvetica,sans-serif;
+	padding: 0px 10px;
+	text-align: right;
+	}
+
+.tblC09sans
+	{
+	color: #000080;
+	font-size: 9pt;
+	font-style: normal;
+	font-family: consolas,courier,helvetica,sans-serif;
+	padding: 0px 10px;
+	text-align: center;
+	}
+
+.tblL09sans
+	{
+	color: #000080;
+	font-size: 9pt;
+	font-style: normal;
+	font-family: consolas,courier,helvetica,sans-serif;
+	padding: 0px 10px;
+	text-align: left;
+	}
+
+.tblR09sans
+	{
+	color: #000080;
+	font-size: 9pt;
+	font-style: normal;
+	font-family: consolas,courier,helvetica,sans-serif;
+	padding: 0px 10px;
+	text-align: right;
+	}
+
+.tblCaption
+	{
+	color: #000080;
+	font-size: 10pt;
+	font-style: normal;
+	font-weight: bold;
+	font-family: consolas,courier,helvetica,sans-serif;
+	text-align: left;
+	}
+
+@media	print {
+	*	{
+		background: transparent !important;
+		color: black !important;
+		filter:none !important;
+		-ms-filter: none !important;
+		}
+
+	body	{
+		font-size: 11pt;
+		max-width:100%;
+		}
+
+	a, a:visited
+		{
+		text-decoration: underline;
+		}
+
+	hr	{
+		visibility: hidden;
+		page-break-before: always;
+		}
+
+	pre, blockquote
+		{
+		font-size: 10pt;
+		padding-right: 1em;
+		page-break-inside: avoid;
+		}
+
+	tr, img	{
+		page-break-inside: avoid;
+		}
+
+	img	{
+		max-width: 100% !important;
+		}
+
+	@page	{
+		margin: 10px;
+		}
+
+	@page :left
+		{
+		margin: 10px;
+		}
+
+	@page :right
+		{
+		margin: 10px;
+		}
+
+	p, h2, h3
+		{
+		orphans: 3; widows: 3;
+		}
+
+	h1, h2, h3
+		{
+		page-break-after: avoid;
+		}
+
+	tt, code, pre {
+		font-family: Consolas, Monaco, monospace;
+		font-size: 9px;
+		}
+
+	.tblCaption
+		{
+		page-break-after: avoid;
+		page-break-inside: avoid;
+		}
+
+	}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Practical Machine Learning Course Project </h1>
+
+<p>By Megan Williams </p>
+
+<p><strong>Background:</strong></p>
+
+<pre><code>Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways:
+
+    Class A: exactly according to the specification (proper execution)
+
+    Class B: throwing the elbows to the front (common mistake)
+
+    Class C: lifting the dumbbell only halfway (common mistake)
+
+    Class D: lowering the dumbbell only halfway (common mistake)
+
+    Class F: Throwing the hips to the front (common mistake)
+</code></pre>
+
+<p><strong>Goal of this Project:</strong>
+The goal of this project is to predict the manner in which the exercise was performed (i.e., Class A, B, C, D, or F). This report will describe the following: </p>
+
+<pre><code>-How I built my model
+
+-How I used cross validation
+
+-What I think the expected out of sample error is
+
+-Explanation for my choices
+</code></pre>
+
+<p><strong>First, I will load the appropriate packages</strong></p>
+
+<pre><code class="r">library(AppliedPredictiveModeling)
+library(caret)
+</code></pre>
+
+<pre><code>## Loading required package: ggplot2
+## 
+## Attaching package: &#39;caret&#39;
+## 
+## The following object is masked from &#39;package:survival&#39;:
+## 
+##     cluster
+</code></pre>
+
+<pre><code class="r">library(randomForest)
+</code></pre>
+
+<pre><code>## randomForest 4.6-10
+## Type rfNews() to see new features/changes/bug fixes.
+## 
+## Attaching package: &#39;randomForest&#39;
+## 
+## The following object is masked from &#39;package:Hmisc&#39;:
+## 
+##     combine
+</code></pre>
+
+<p><strong>Next, I will load and examine the data</strong></p>
+
+<pre><code class="r">rm(list = ls(all = TRUE))
+
+setwd(&#39;/Users/meganwilliams/Desktop/MachineLearning&#39;)
+
+Training = read.csv(file=&quot;pml-training.csv&quot;, header=TRUE, as.is = TRUE, stringsAsFactors = FALSE, sep=&#39;,&#39;, na.strings = c(&#39;NA&#39;,&#39;&#39;,&#39;#DIV/0!&#39;))
+Testing = read.csv(file=&quot;pml-testing.csv&quot;, header=TRUE, as.is = TRUE, stringsAsFactors = FALSE, sep=&#39;,&#39;, na.strings = c(&#39;NA&#39;,&#39;&#39;,&#39;#DIV/0!&#39;))
+
+Training$classe = as.factor(Training$classe)  
+
+dim(Training)
+</code></pre>
+
+<pre><code>## [1] 19622   160
+</code></pre>
+
+<pre><code class="r">dim(Testing)
+</code></pre>
+
+<pre><code>## [1]  20 160
+</code></pre>
+
+<pre><code class="r">summary(Training$classe)
+</code></pre>
+
+<pre><code>##    A    B    C    D    E 
+## 5580 3797 3422 3216 3607
+</code></pre>
+
+<p><strong>Next, I will get rid of any  missing values or unnecessary variables</strong></p>
+
+<pre><code class="r">NAs = apply(Training,2,function(x) {sum(is.na(x))}) 
+Training = Training[,which(NAs == 0)]
+NAs = apply(Testing,2,function(x) {sum(is.na(x))}) 
+Testing = Testing[,which(NAs == 0)]
+</code></pre>
+
+<p><strong>Next, I will work on preprocessing the variables</strong></p>
+
+<pre><code class="r">pre_Proc = which(lapply(Training, class) %in% &quot;numeric&quot;)
+
+pre_Obj = preProcess(Training[,pre_Proc],method=c(&#39;knnImpute&#39;, &#39;center&#39;, &#39;scale&#39;))
+train = predict(pre_Obj, Training[,pre_Proc])
+train$classe = Training$classe
+
+test = predict(pre_Obj,Testing[,pre_Proc])
+</code></pre>
+
+<p><strong>Non-zero Variables</strong></p>
+
+<p><em>Now, let&#39;s remove the non-zero variables</em></p>
+
+<pre><code class="r">nzv = nearZeroVar(train,saveMetrics=TRUE)
+train = train[,nzv$nzv==FALSE]
+
+nzv = nearZeroVar(test,saveMetrics=TRUE)
+test = test[,nzv$nzv==FALSE]
+</code></pre>
+
+<p><strong>Cross validations</strong></p>
+
+<p><em>Now, we must split the data into one set for training and one set for cross validation. The cross validation set will be used as the train control method for our model</em></p>
+
+<pre><code class="r">set.seed(12031987)
+
+inTrain = createDataPartition(train$classe, p = 3/4, list=FALSE)
+training = train[inTrain,]
+crossValidation = train[-inTrain,]
+</code></pre>
+
+<p><strong>Model</strong></p>
+
+<p><em>Next, we will create the Train model using Random Forest.</em></p>
+
+<pre><code class="r">fit = train(classe ~., method=&quot;rf&quot;, data=training, trControl=trainControl(method=&#39;cv&#39;), number=5, allowParallel=TRUE )
+</code></pre>
+
+<pre><code>## 
+## Attaching package: &#39;e1071&#39;
+## 
+## The following object is masked from &#39;package:Hmisc&#39;:
+## 
+##     impute
+</code></pre>
+
+<pre><code class="r">save(fit,file=&quot;/Users/meganwilliams/Desktop/MachineLearning/fit.R&quot;)
+</code></pre>
+
+<p><strong>Accuracy</strong></p>
+
+<p><em>Next, let&#39;s check out the accuracy of the training set and the cross-validation set</em></p>
+
+<pre><code class="r">##Training Set
+train_Pred &lt;- predict(fit, training)
+confusionMatrix(train_Pred, training$classe)
+</code></pre>
+
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 4185    0    0    0    0
+##          B    0 2848    0    0    0
+##          C    0    0 2567    0    0
+##          D    0    0    0 2412    0
+##          E    0    0    0    0 2706
+## 
+## Overall Statistics
+##                                 
+##                Accuracy : 1     
+##                  95% CI : (1, 1)
+##     No Information Rate : 0.284 
+##     P-Value [Acc &gt; NIR] : &lt;2e-16
+##                                 
+##                   Kappa : 1     
+##  Mcnemar&#39;s Test P-Value : NA    
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity             1.000    1.000    1.000    1.000    1.000
+## Specificity             1.000    1.000    1.000    1.000    1.000
+## Pos Pred Value          1.000    1.000    1.000    1.000    1.000
+## Neg Pred Value          1.000    1.000    1.000    1.000    1.000
+## Prevalence              0.284    0.194    0.174    0.164    0.184
+## Detection Rate          0.284    0.194    0.174    0.164    0.184
+## Detection Prevalence    0.284    0.194    0.174    0.164    0.184
+## Balanced Accuracy       1.000    1.000    1.000    1.000    1.000
+</code></pre>
+
+<pre><code class="r">##Cross Validation Set
+cross_Pred &lt;- predict(fit, crossValidation)
+confusionMatrix(cross_Pred, crossValidation$classe)
+</code></pre>
+
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1392    3    0    0    0
+##          B    2  944    2    0    0
+##          C    0    2  852    3    0
+##          D    0    0    1  801    3
+##          E    1    0    0    0  898
+## 
+## Overall Statistics
+##                                         
+##                Accuracy : 0.997         
+##                  95% CI : (0.994, 0.998)
+##     No Information Rate : 0.284         
+##     P-Value [Acc &gt; NIR] : &lt;2e-16        
+##                                         
+##                   Kappa : 0.996         
+##  Mcnemar&#39;s Test P-Value : NA            
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity             0.998    0.995    0.996    0.996    0.997
+## Specificity             0.999    0.999    0.999    0.999    1.000
+## Pos Pred Value          0.998    0.996    0.994    0.995    0.999
+## Neg Pred Value          0.999    0.999    0.999    0.999    0.999
+## Prevalence              0.284    0.194    0.174    0.164    0.184
+## Detection Rate          0.284    0.192    0.174    0.163    0.183
+## Detection Prevalence    0.284    0.193    0.175    0.164    0.183
+## Balanced Accuracy       0.998    0.997    0.998    0.998    0.998
+</code></pre>
+
+<p><strong>Out of Sample Error</strong></p>
+
+<p><em>Next, we should calculate the out of sample error. We do this by subtracting 1 from the accuracy for predictions made against the cross-validation set. The out of sample error is low, suggesting that it is unlikely that the test samples will be classified incorrectly.</em></p>
+
+<pre><code class="r">Out_of_Sample_Error = 1-.9965
+Out_of_Sample_Error
+</code></pre>
+
+<pre><code>## [1] 0.0035
+</code></pre>
+
+<p><em>Results</em></p>
+
+<p><em>Look at the predictions on the real testing set</em></p>
+
+<pre><code class="r">test_Pred = predict(fit, test)
+test_Pred
+</code></pre>
+
+<pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B
+## Levels: A B C D E
+</code></pre>
+
+</body>
+
+</html>
